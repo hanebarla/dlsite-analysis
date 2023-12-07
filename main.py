@@ -1,7 +1,5 @@
-import os
 import json
 import argparse
-import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -109,7 +107,6 @@ def get_history():
     select.select_by_value('all')
     display_btn = driver.find_element(By.ID, '_display')
     display_btn.submit()
-    time.sleep(10)
     
     html = driver.page_source
     with open('tmp.html', 'w') as f:
