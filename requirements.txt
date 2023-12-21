@@ -1,1 +1,6 @@
 selenium
+numpy
+mecab-python3
+gensim
+faiss-cpu
+transformers

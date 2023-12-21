@@ -21,6 +21,16 @@ RUN curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd6
 ADD https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/120.0.6099.62/linux64/chromedriver-linux64.zip /opt/chrome/
 RUN cd /opt/chrome/ && unzip chromedriver-linux64.zip
 
+# Mecab
+RUN apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 \
+                       git make curl xz-utils file sudo
+RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git && \
+    cd mecab-ipadic-neologd && \
+    ./bin/install-mecab-ipadic-neologd -n -y && \
+    echo dicdir = `mecab-config --dicdir`"/mecab-ipadic-neologd">/etc/mecabrc && \
+    sudo cp /etc/mecabrc /usr/local/etc && \
+    cd ..
+
 # Install any needed packages specified in requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
